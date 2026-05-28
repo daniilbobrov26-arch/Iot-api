@@ -1,0 +1,10 @@
+    {
+  "name": "iot-backend",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mqtt": "^5.3.5",
+    "sqlite3": "^5.1.7",
+    "ws": "^8.17.0"
+  }
+}

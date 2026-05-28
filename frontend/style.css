@@ -1,0 +1,21 @@
+body {
+    font-family: Arial;
+    padding: 40px;
+}
+
+.device {
+    margin-bottom: 30px;
+}
+
+.lamp {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: gray;
+    margin-bottom: 10px;
+}
+
+.lamp.on {
+    background: yellow;
+    box-shadow: 0 0 30px yellow;
+}
