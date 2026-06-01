@@ -1,24 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>IoT Lamps</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daniil Iot project</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <main class="page">
+        <h1>Daniil Iot project</h1>
+        <p class="subtitle">Smart lamp control panel</p>
 
-<h1>IoT Lamp Control</h1>
+        <div id="socket-alert" class="alert hidden" role="alert" aria-live="assertive"></div>
 
-<div class="device">
-    <div id="lamp-relay-1" class="lamp off"></div>
-    <button onclick="toggle('relay-1')">Toggle</button>
-</div>
+        <section class="grid">
+            <article class="device" data-device="relay-1">
+                <div id="lamp-relay-1" class="lamp off" aria-hidden="true">&#128161;</div>
+                <div class="device-info">
+                    <h2>Relay 1</h2>
+                    <button id="switch-relay-1" class="switch" onclick="toggle('relay-1')" aria-label="Toggle Relay 1">
+                        <span class="switch-track"></span>
+                        <span class="switch-thumb"></span>
+                    </button>
+                </div>
+            </article>
 
-<div class="device">
-    <div id="lamp-relay-2" class="lamp off"></div>
-    <button onclick="toggle('relay-2')">Toggle</button>
-</div>
+            <article class="device" data-device="relay-2">
+                <div id="lamp-relay-2" class="lamp off" aria-hidden="true">&#128161;</div>
+                <div class="device-info">
+                    <h2>Relay 2</h2>
+                    <button id="switch-relay-2" class="switch" onclick="toggle('relay-2')" aria-label="Toggle Relay 2">
+                        <span class="switch-track"></span>
+                        <span class="switch-thumb"></span>
+                    </button>
+                </div>
+            </article>
+        </section>
+    </main>
 
-<script src="app.js"></script>
-
+    <script src="app.js"></script>
 </body>
 </html>

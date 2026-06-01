@@ -1,0 +1,61 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Node.js
+node_modules/
+**/node_modules/
+
+# Build artifacts
+dist/
+build/
+coverage/
+.tmp/
+tmp/
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# SQLite data
+*.sqlite
+*.sqlite3
+*.db
+/backend/data/
+
+# Docker / compose overrides
+.docker/
+docker-compose.override.yml
+
+# Mosquitto persisted data
+mosquitto_data/
+mosquitto/config/passwords
+
+# Nginx auth secrets
+nginx/.htpasswd
+
+# Archives
+*.tgz
+*.gz
+*.zip
+*.tar

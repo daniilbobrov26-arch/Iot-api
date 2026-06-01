@@ -3,7 +3,11 @@ const deviceService = require('./deviceService');
 
 const client = mqtt.connect({
     host: process.env.MQTT_HOST,
-    port: process.env.MQTT_PORT
+    port: Number(process.env.MQTT_PORT),
+    username: process.env.MQTT_USERNAME,
+    password: process.env.MQTT_PASSWORD,
+    reconnectPeriod: 2000,
+    keepalive: 30
 });
 
 let wsBroadcast = null;
@@ -24,6 +28,10 @@ client.on('message', (topic, message) => {
             status: data.status
         });
     }
+});
+
+client.on('error', (error) => {
+    console.error('MQTT connection error', error);
 });
 
 function publishCommand(uuid, action) {

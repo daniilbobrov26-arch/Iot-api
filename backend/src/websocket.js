@@ -6,10 +6,14 @@ function initWebsocket(server, deviceService, mqttService) {
         path: '/ws'
     });
 
+    const heartbeatIntervalMs = 30000;
+
     function broadcast(data) {
+        const payload = JSON.stringify(data);
+
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
-                client.send(JSON.stringify(data));
+                client.send(payload);
             }
         });
     }
@@ -17,21 +21,44 @@ function initWebsocket(server, deviceService, mqttService) {
     mqttService.setBroadcast(broadcast);
 
     wss.on('connection', (ws) => {
+        ws.isAlive = true;
+
+        ws.on('pong', () => {
+            ws.isAlive = true;
+        });
+
         ws.send(JSON.stringify({
             type: 'init',
             devices: deviceService.getDevices()
         }));
 
         ws.on('message', (message) => {
-            const data = JSON.parse(message);
+            try {
+                const data = JSON.parse(message);
 
-            if (data.type === 'toggle') {
-                mqttService.publishCommand(
-                    data.uuid,
-                    data.action
-                );
+                if (data.type === 'toggle') {
+                    mqttService.publishCommand(data.uuid, data.action);
+                }
+            } catch (error) {
+                console.error('Invalid websocket message', error);
             }
         });
+    });
+
+    const interval = setInterval(() => {
+        wss.clients.forEach((ws) => {
+            if (!ws.isAlive) {
+                ws.terminate();
+                return;
+            }
+
+            ws.isAlive = false;
+            ws.ping();
+        });
+    }, heartbeatIntervalMs);
+
+    wss.on('close', () => {
+        clearInterval(interval);
     });
 }
 
