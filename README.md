@@ -1,4 +1,4 @@
-# Daniil IoT Project
+# Arduino IoT Project
 
 Лёгкий IoT-проект для управления лампами через веб-интерфейс, backend API, WebSocket и MQTT-брокер.
 
