@@ -39,7 +39,11 @@ services:
       - .env
     command: >
       sh -c "chown -R mosquitto:mosquitto /mosquitto/data &&
-      mosquitto_passwd -b -c /mosquitto/data/passwords \"$$MQTT_USERNAME\" \"$$MQTT_PASSWORD\" &&
+      if [ -f /mosquitto/data/passwords ]; then
+        mosquitto_passwd -b /mosquitto/data/passwords \"$$MQTT_USERNAME\" \"$$MQTT_PASSWORD\";
+      else
+        mosquitto_passwd -b -c /mosquitto/data/passwords \"$$MQTT_USERNAME\" \"$$MQTT_PASSWORD\";
+      fi &&
       chown mosquitto:mosquitto /mosquitto/data/passwords &&
       chmod 640 /mosquitto/data/passwords &&
       exec mosquitto -c /mosquitto/config/mosquitto.conf"
